@@ -22,6 +22,10 @@ import TribalLayout from "./layouts/TribalLayout";
 import EarthEngineMap from "./pages/gei";
 import Settings from "./pages/Settings";
 import Help from "./pages/Help";
+import About from "./pages/About";
+import Process from "./pages/Process";
+import Act from "./pages/Act";
+import Contact from "./pages/Contact";
 const queryClient = new QueryClient();
 
 const App = () => (
@@ -55,8 +59,13 @@ const App = () => (
   <Route path="gei" element={<EarthEngineMap/>} />
   <Route path="settings" element={<Settings/>} />
   <Route path="help" element={<Help/>} />
+  
 
 </Route>
+<Route path="about" element={<About/>} />
+<Route path="process" element={<Process/>} />
+<Route path="act" element={<Act/>} />
+<Route path="contact" element={<Contact/>} />
 
   {/* ================= GOVERNMENT ================= */}
   

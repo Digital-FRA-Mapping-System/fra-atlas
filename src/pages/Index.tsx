@@ -42,11 +42,36 @@ const Index = () => {
             </div>
           </div>
           <div className="hidden lg:flex items-center gap-7 text-sm font-medium text-muted-foreground">
-            <a className="hover:text-foreground transition-colors" href="#about">About</a>
-            <a className="hover:text-foreground transition-colors" href="#process">Process</a>
-            <a className="hover:text-foreground transition-colors" href="#act">The Act</a>
-            <a className="hover:text-foreground transition-colors" href="#contact">Contact</a>
-          </div>
+
+  <Link
+    to="/about"
+    className="hover:text-foreground transition-colors"
+  >
+    About
+  </Link>
+
+  <a
+    href="/process"
+    className="hover:text-foreground transition-colors"
+  >
+    Process
+  </a>
+
+  <a
+    href="/act"
+    className="hover:text-foreground transition-colors"
+  >
+    The Act
+  </a>
+
+  <a
+    href="/contact"
+    className="hover:text-foreground transition-colors"
+  >
+    Contact
+  </a>
+
+</div>
           <div className="flex items-center gap-2">
             <Link to="/login/tribal">
               <Button variant="ghost" className="text-foreground hover:bg-muted hidden sm:inline-flex">
