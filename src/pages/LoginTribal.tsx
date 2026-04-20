@@ -14,14 +14,40 @@ const LoginTribal = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
 
-  const handleLogin = (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
+  
     if (!aadhaar || !password) {
       toast({ title: "Please fill all fields", variant: "destructive" });
       return;
     }
-    localStorage.setItem("fra_user", JSON.stringify({ type: "tribal", name: "Ramesh Munda", aadhaar }));
-    navigate("/dashboard");
+  
+    try {
+      // 🔥 Fetch beneficiaries
+      const res = await fetch("http://localhost:5000/beneficiaries");
+      const data = await res.json();
+  
+      // 🔍 Find user by Aadhaar
+      const user = data.find((b: any) => b.aadhaar === aadhaar);
+  
+      if (!user) {
+        toast({ title: "User not found", variant: "destructive" });
+        return;
+      }
+  
+      // ✅ Store user WITH claim_id
+      localStorage.setItem("fra_user", JSON.stringify({
+        type: "tribal",
+        name: user.name,
+        aadhaar: user.aadhaar,
+        claim_id: user.claim_id   // 🔥 IMPORTANT
+      }));
+  
+      navigate("/dashboard/tribal");
+  
+    } catch (err) {
+      toast({ title: "Server error", variant: "destructive" });
+    }
   };
 
   return (

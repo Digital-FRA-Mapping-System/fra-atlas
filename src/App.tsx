@@ -10,7 +10,16 @@ import Dashboard from "./pages/Dashboard.tsx";
 import DashboardTribal from "./pages/DashboardTribal.tsx";
 import DashboardGovernment from "./pages/DashboardGovernment.tsx";
 import NotFound from "./pages/NotFound.tsx";
-
+import ClaimsReview from "./pages/ClaimsReview";
+import MainLayout from './layouts/MainLayout.tsx';
+import Beneficiaries from "./pages/Beneficiaries.tsx";
+import Analytics from  "./pages/Analytics.tsx";
+import Alerts from "./pages/Alerts";
+import MyLands from "./pages/MyLands";
+import MyClaims from "./pages/MyClaims";
+import MyAlerts from "./pages/MyAlerts";
+import TribalLayout from "./layouts/TribalLayout";
+import EarthEngineMap from "./pages/gei";
 const queryClient = new QueryClient();
 
 const App = () => (
@@ -19,15 +28,37 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Index />} />
-          <Route path="/login/tribal" element={<LoginTribal />} />
-          <Route path="/login/government" element={<LoginGovernment />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/dashboard/tribal" element={<DashboardTribal />} />
-          <Route path="/dashboard/government" element={<DashboardGovernment />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
+      <Routes>
+  <Route path="/" element={<Index />} />
+
+  <Route path="/login/tribal" element={<LoginTribal />} />
+  <Route path="/login/government" element={<LoginGovernment />} />
+
+  {/* ================= TRIBAL ================= */}
+  <Route path="/dashboard/tribal" element={<TribalLayout />}>
+
+    <Route index element={<DashboardTribal />} />
+    <Route path="my-lands" element={<MyLands />} />
+    <Route path="my-claims" element={<MyClaims />} />
+    <Route path="my-alerts" element={<MyAlerts />} />
+
+  </Route>
+  <Route path="/dashboard/government1" element={<MainLayout />}>
+
+  <Route index element={<DashboardGovernment />} />
+  <Route path="claims-review" element={<ClaimsReview />} />
+  <Route path="beneficiaries" element={<Beneficiaries />} />
+  <Route path="analytics" element={<Analytics />} />
+  <Route path="alerts" element={<Alerts />} />
+  <Route path="gei" element={<EarthEngineMap/>} />
+
+</Route>
+
+  {/* ================= GOVERNMENT ================= */}
+  
+
+  <Route path="*" element={<NotFound />} />
+</Routes>
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>
