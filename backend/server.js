@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 import cors from "cors";
 import Claim from "./models/Claim.js"; // ⚠️ .js extension required
 import Beneficiary from "./models/Beneficiary.js"; 
+import Settings from "./models/Settings.js"; 
 const app = express();
 app.use(cors());
 app.use(express.json());
@@ -114,6 +115,57 @@ app.get("/analytics", async (req, res) => {
     } catch (err) {
       res.status(500).json({ error: err.message });
     }
+  });
+  app.post("/upload-gee", async (req, res) => {
+    const data = JSON.parse(fs.readFileSync("fra_plot.geojson"));
+  
+    for (const f of data.features) {
+      const groups = f.properties.assets;
+  
+      const claim = new Claim({
+        claim_id: f.properties.plot_id,
+        village: f.properties.village,
+  
+        land_data: {
+          water: extract(groups, 0),
+          trees: extract(groups, 1),
+          crops: extract(groups, 4)
+        },
+  
+        status: "Pending"
+      });
+  
+      await claim.save();
+    }
+  
+    res.json({ message: "Stored successfully" });
+  });
+  app.get("/settings", async (req, res) => {
+    let settings = await Settings.findOne();
+  
+    if (!settings) {
+      settings = new Settings();
+      await settings.save();
+    }
+  
+    res.json(settings);
+  });
+  app.put("/settings", async (req, res) => {
+    const { waterThreshold, cropsThreshold } = req.body;
+  
+    let settings = await Settings.findOne();
+  
+    if (!settings) {
+      settings = new Settings();
+    }
+  
+    settings.waterThreshold = waterThreshold;
+    settings.cropsThreshold = cropsThreshold;
+    settings.updatedAt = new Date();
+  
+    await settings.save();
+  
+    res.json(settings);
   });
 
 app.listen(5000, () => console.log("🚀 Server running on 5000"));

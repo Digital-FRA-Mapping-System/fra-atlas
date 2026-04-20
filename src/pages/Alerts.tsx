@@ -22,49 +22,62 @@ const Alerts = () => {
   const [alerts, setAlerts] = useState<Alert[]>([]);
 
   useEffect(() => {
-    fetch("http://localhost:5000/claims")
-      .then(res => res.json())
-      .then((data) => {
-        console.log("CLAIMS DATA:", data); // 🔥 ADD THIS
+    const loadData = async () => {
+      try {
+        const [claimsRes, settingsRes] = await Promise.all([
+          fetch("http://localhost:5000/claims"),
+          fetch("http://localhost:5000/settings")
+        ]);
+  
+        const claims = await claimsRes.json();
+        const settings = await settingsRes.json();
+  
+        console.log("CLAIMS:", claims);
+        console.log("SETTINGS:", settings);
+  
         const generated: Alert[] = [];
-
-        data.forEach((c) => {
-            // 🚨 Skip invalid records
-            if (!c.land_data) return;
-          
-            // LOW WATER
-            if (c.land_data.water < 10) {
-              generated.push({
-                type: "Water",
-                message: `Low water detected in ${c.village}`,
-                village: c.village,
-                severity: "High"
-              });
-            }
-          
-            // LOW CROPS
-            if (c.land_data.crops < 20) {
-              generated.push({
-                type: "Crops",
-                message: `Low crop production in ${c.village}`,
-                village: c.village,
-                severity: "Medium"
-              });
-            }
-          
-            // PENDING CLAIM
-            if (c.status === "Pending") {
-              generated.push({
-                type: "Claim",
-                message: `Pending claim (${c.claim_id}) needs review`,
-                village: c.village,
-                severity: "Info"
-              });
-            }
-          });
-
+  
+        claims.forEach((c: Claim) => {
+          // 🚨 Skip invalid
+          if (!c.land_data) return;
+  
+          // ✅ USE SETTINGS (IMPORTANT)
+          if (c.land_data.water < settings.waterThreshold) {
+            generated.push({
+              type: "Water",
+              message: `Low water detected in ${c.village}`,
+              village: c.village,
+              severity: "High"
+            });
+          }
+  
+          if (c.land_data.crops < settings.cropsThreshold) {
+            generated.push({
+              type: "Crops",
+              message: `Low crop production in ${c.village}`,
+              village: c.village,
+              severity: "Medium"
+            });
+          }
+  
+          if (c.status === "Pending") {
+            generated.push({
+              type: "Claim",
+              message: `Pending claim (${c.claim_id}) needs review`,
+              village: c.village,
+              severity: "Info"
+            });
+          }
+        });
+  
         setAlerts(generated);
-      });
+  
+      } catch (err) {
+        console.error("Error loading alerts:", err);
+      }
+    };
+  
+    loadData();
   }, []);
 
   return (

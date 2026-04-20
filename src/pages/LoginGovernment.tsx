@@ -20,7 +20,7 @@ const LoginGovernment = () => {
       return;
     }
     localStorage.setItem("fra_user", JSON.stringify({ type: "government", name: "Dr. A. Krishnan", employeeId }));
-    navigate("/dashboard");
+    navigate("/dashboard/government1");
   };
 
   return (

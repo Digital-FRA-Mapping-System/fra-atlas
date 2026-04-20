@@ -65,13 +65,22 @@ const MainLayout = () => {
 
         {/* FOOTER */}
         <div className="p-4 border-t border-cream/10 space-y-1">
-          <button className="w-full flex items-center gap-3 px-3 py-2.5 text-sm">
-            <Settings className="h-4 w-4" /> Settings
-          </button>
-          <button className="w-full flex items-center gap-3 px-3 py-2.5 text-sm">
-            <HelpCircle className="h-4 w-4" /> Help
-          </button>
-        </div>
+
+  <button
+    onClick={() => navigate("/dashboard/government1/settings")}
+    className="w-full flex items-center gap-3 px-3 py-2.5 text-sm hover:bg-cream/10 rounded"
+  >
+    <Settings className="h-4 w-4" /> Settings
+  </button>
+
+  <button
+    onClick={() => navigate("/dashboard/government1/help")}
+    className="w-full flex items-center gap-3 px-3 py-2.5 text-sm hover:bg-cream/10 rounded"
+  >
+    <HelpCircle className="h-4 w-4" /> Help
+  </button>
+
+</div>
       </aside>
 
       {/* MAIN */}

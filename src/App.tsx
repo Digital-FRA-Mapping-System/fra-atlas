@@ -20,6 +20,8 @@ import MyClaims from "./pages/MyClaims";
 import MyAlerts from "./pages/MyAlerts";
 import TribalLayout from "./layouts/TribalLayout";
 import EarthEngineMap from "./pages/gei";
+import Settings from "./pages/Settings";
+import Help from "./pages/Help";
 const queryClient = new QueryClient();
 
 const App = () => (
@@ -51,6 +53,8 @@ const App = () => (
   <Route path="analytics" element={<Analytics />} />
   <Route path="alerts" element={<Alerts />} />
   <Route path="gei" element={<EarthEngineMap/>} />
+  <Route path="settings" element={<Settings/>} />
+  <Route path="help" element={<Help/>} />
 
 </Route>
 
