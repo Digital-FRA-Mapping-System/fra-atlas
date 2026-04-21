@@ -4,6 +4,7 @@ import cors from "cors";
 import Claim from "./models/Claim.js"; // ⚠️ .js extension required
 import Beneficiary from "./models/Beneficiary.js"; 
 import Settings from "./models/Settings.js"; 
+import User from "./models/User.js"; 
 const app = express();
 app.use(cors());
 app.use(express.json());
@@ -167,5 +168,43 @@ app.get("/analytics", async (req, res) => {
   
     res.json(settings);
   });
-
+  app.post("/login", async (req, res) => {
+    const { id, password, type } = req.body;
+  
+    try {
+      let user;
+  
+      // 🔥 Check user type
+      if (type === "government") {
+        user = await User.findOne({ employeeId: id });
+      } else {
+        user = await User.findOne({ aadhaar: id });
+      }
+  
+      // ❌ If not found
+      if (!user || user.password !== password) {
+        return res.status(400).json({
+          success: false,
+          msg: "Invalid credentials"
+        });
+      }
+  
+      // ✅ Success
+      res.json({
+        success: true,
+        user: {
+          name: user.name,
+          type: user.type,
+          employeeId: user.employeeId,
+          aadhaar: user.aadhaar
+        }
+      });
+  
+    } catch (err) {
+      res.status(500).json({
+        success: false,
+        msg: "Server error"
+      });
+    }
+  });
 app.listen(5000, () => console.log("🚀 Server running on 5000"));

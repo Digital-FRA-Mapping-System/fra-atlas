@@ -13,15 +13,53 @@ const LoginGovernment = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
 
-  const handleLogin = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!employeeId || !password) {
-      toast({ title: "Please fill all fields", variant: "destructive" });
+  const handleLogin = async (e: React.FormEvent) => {
+  e.preventDefault();
+
+  if (!employeeId || !password) {
+    toast({ title: "Please fill all fields", variant: "destructive" });
+    return;
+  }
+
+  try {
+    const res = await fetch("http://localhost:5000/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        id: employeeId,
+        password: password,
+        type: "government"
+      })
+    });
+
+    const data = await res.json();
+
+    if (!res.ok) {
+      toast({
+        title: data.msg || "Login failed",
+        variant: "destructive"
+      });
       return;
     }
-    localStorage.setItem("fra_user", JSON.stringify({ type: "government", name: "Dr. A. Krishnan", employeeId }));
+
+    // ✅ store user from backend
+    localStorage.setItem("fra_user", JSON.stringify(data.user));
+
+    toast({
+      title: "Login successful ✅"
+    });
+
     navigate("/dashboard/government1");
-  };
+
+  } catch (err) {
+    toast({
+      title: "Server error",
+      variant: "destructive"
+    });
+  }
+};
 
   return (
     <div className="min-h-screen flex">

@@ -15,7 +15,7 @@ const Index = () => {
             <span className="hidden sm:inline">Ministry of Tribal Affairs</span>
           </div>
           <div className="hidden md:flex items-center gap-4">
-            <button className="hover:text-amber transition-colors">Skip to main content</button>
+            {/* <button className="hover:text-amber transition-colors">Skip to main content</button> */}
             <span className="text-cream/40">|</span>
             <button className="inline-flex items-center gap-1 hover:text-amber transition-colors">
               <Languages className="h-3 w-3" /> EN / हिं
@@ -225,7 +225,7 @@ const Index = () => {
               </Button>
             </Link>
             <Link to="/login/government">
-              <Button size="lg" variant="outline" className="border-cream/30 text-cream hover:bg-cream/10 h-12 px-7">
+              <Button size="lg" variant="outline" className="bg-amber text-forest-dark hover:bg-amber-light font-semibold h-12 px-7">
                 Officer Portal
               </Button>
             </Link>
