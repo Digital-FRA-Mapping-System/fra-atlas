@@ -110,19 +110,19 @@ const Index = () => {
               <p className="text-lg md:text-xl text-cream/75 font-body mb-10 max-w-xl leading-relaxed">
                 A unified GIS platform recognising, recording and safeguarding the customary rights of Scheduled Tribes and traditional forest dwellers across India.
               </p>
-              <div className="flex flex-wrap gap-3">
+              {/* <div className="flex flex-wrap gap-3">
                 <Link to="/login/tribal">
-                  <Button size="lg" className="bg-amber text-forest-dark hover:bg-amber-light font-semibold text-base px-7 h-12 shadow-glow">
-                    File a Claim
-                    <ArrowRight className="ml-2 h-4 w-4" />
+                  {/* <Button size="lg" className="bg-amber text-forest-dark hover:bg-amber-light font-semibold text-base px-7 h-12 shadow-glow">
+                    {/* File a Claim */}
+                    {/* <ArrowRight className="ml-2 h-4 w-4" />
                   </Button>
                 </Link>
                 <Link to="/login/government">
-                  <Button size="lg" variant="outline" className="border-cream/25 bg-cream/5 text-cream hover:bg-cream/10 backdrop-blur-sm text-base px-7 h-12">
-                    Officer Portal
-                  </Button>
-                </Link>
-              </div>
+                  <Button size="lg" variant="outline" className="border-cream/25 bg-cream/5 text-cream hover:bg-cream/10 backdrop-blur-sm text-base px-7 h-12"> */}
+                    {/* Officer Portal */}
+                  {/* </Button> */}
+                {/* </Link> */} */
+              {/* </div> */} */
 
               <div className="mt-14 pt-8 border-t border-cream/10 grid grid-cols-3 gap-6 max-w-xl">
                 {[
