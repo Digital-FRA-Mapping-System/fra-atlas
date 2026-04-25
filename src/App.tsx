@@ -22,6 +22,7 @@ import TribalLayout from "./layouts/TribalLayout";
 import EarthEngineMap from "./pages/gei";
 import Settings from "./pages/Settings";
 import Help from "./pages/Help";
+import UploadDocument from "./pages/UploadDocument";
 import About from "./pages/About";
 import Process from "./pages/Process";
 import Act from "./pages/Act";
@@ -57,6 +58,7 @@ const App = () => (
   <Route path="analytics" element={<Analytics />} />
   <Route path="alerts" element={<Alerts />} />
   <Route path="gei" element={<EarthEngineMap/>} />
+  <Route path="upload" element={<UploadDocument/>} />
   <Route path="settings" element={<Settings/>} />
   <Route path="help" element={<Help/>} />
   
